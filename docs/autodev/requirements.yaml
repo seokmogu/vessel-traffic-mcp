@@ -1,0 +1,199 @@
+version: 1
+project: vessel-traffic-mcp
+features:
+  - id: F0
+    title: Project scaffold and compliance baseline
+    phase: P0
+    status: implemented
+    source_docs:
+      - docs/PRD.md
+      - docs/TDD.md
+      - AGENTS.md
+    acceptance_criteria:
+      - id: AC1
+        description: Initialize the TypeScript Node package, docs, gitignore, and verification scripts.
+        status: implemented
+        verification: npm run lint && npm test && npm run build
+      - id: AC2
+        description: Document the compliance boundary for official APIs, open data, and sanitized authorized captures.
+        status: implemented
+        verification: docs-review
+
+  - id: F1
+    title: MCP core transports and tool registry
+    phase: P0
+    status: not_implemented
+    source_docs:
+      - docs/PRD.md
+      - docs/TDD.md
+    acceptance_criteria:
+      - id: AC1
+        description: Implement a stdio MCP server that starts from the package binary and exposes at least provider_status and data_sources tools backed by a fixture provider.
+        status: pending
+        verification: npm test
+      - id: AC2
+        description: Implement a Streamable HTTP MCP endpoint with optional bearer-token auth and a public /health endpoint.
+        status: pending
+        verification: npm test
+      - id: AC3
+        description: Add client setup documentation for Claude Desktop, Claude Code, ChatGPT remote MCP, and generic MCP Inspector usage.
+        status: pending
+        verification: docs-review
+
+  - id: F2
+    title: Normalized provider model and routing layer
+    phase: P0
+    status: not_implemented
+    source_docs:
+      - docs/PRD.md
+      - docs/TDD.md
+    acceptance_criteria:
+      - id: AC1
+        description: Define normalized vessel identity, position, track, port-call, source metadata, provider status, and no-data result types.
+        status: pending
+        verification: npm test
+      - id: AC2
+        description: Implement provider adapter interfaces, provider registry, provider router, credential requirement metadata, rate-limit hooks, and cache TTL hooks.
+        status: pending
+        verification: npm test
+      - id: AC3
+        description: Implement a deterministic fixture provider with search, latest position, area query, track, and port-call sample data.
+        status: pending
+        verification: npm test
+
+  - id: F2B
+    title: BYOK credential profiles for paid APIs
+    phase: P0
+    status: not_implemented
+    source_docs:
+      - docs/PRD.md
+      - docs/TDD.md
+      - AGENTS.md
+    acceptance_criteria:
+      - id: AC1
+        description: Implement a redacted credential profile loader that supports provider-specific API keys from env/local ignored config and exposes only profile labels/status through MCP tools.
+        status: pending
+        verification: npm test
+      - id: AC2
+        description: Implement paid-provider routing inputs such as provider, credentialProfile, and fallbackPolicy without logging or echoing raw keys.
+        status: pending
+        verification: npm test
+      - id: AC3
+        description: Add a disabled-by-default one-time request credential path that is in-memory only, redacted from errors/logs, and covered by tests.
+        status: pending
+        verification: npm test
+
+  - id: F3
+    title: Read-only vessel MCP tools
+    phase: P1
+    status: not_implemented
+    source_docs:
+      - docs/PRD.md
+      - docs/TDD.md
+    acceptance_criteria:
+      - id: AC1
+        description: Implement vessel_search, vessel_name_resolve, document_vessel_lookup, vessel_position, vessel_area, vessel_track, and port_calls tools with runtime input validation.
+        status: pending
+        verification: npm test
+      - id: AC2
+        description: Ensure every tool response includes source, retrievedAt, observedAt when available, freshness, coverage, and confidence metadata.
+        status: pending
+        verification: npm test
+
+  - id: F3B
+    title: B/L document vessel-name resolution
+    phase: P1
+    status: not_implemented
+    source_docs:
+      - docs/PRD.md
+      - docs/TDD.md
+    acceptance_criteria:
+      - id: AC1
+        description: Implement document signal extraction for B/L-style text, including vessel names, voyage numbers, carrier names, ports, dates, container numbers, and explicit IMO/MMSI/callsign identifiers.
+        status: pending
+        verification: npm test
+      - id: AC2
+        description: Implement vessel-name normalization and candidate ranking that combines exact/fuzzy name match, identifier match, provider evidence, and port/date/voyage context.
+        status: pending
+        verification: npm test
+      - id: AC3
+        description: Return ranked candidates with matchedSignals, missingSignals, latestPosition when available, confidence, and needsConfirmation for ambiguous results.
+        status: pending
+        verification: npm test
+      - id: AC3
+        description: Return structured no-data and stale-data states instead of generic failures for unavailable AIS data.
+        status: pending
+        verification: npm test
+
+  - id: F4
+    title: Free, open, and commercial provider adapters
+    phase: P1
+    status: not_implemented
+    source_docs:
+      - docs/PRD.md
+      - docs/TDD.md
+    acceptance_criteria:
+      - id: AC1
+        description: Implement an AISStream adapter that can subscribe to a configured bounding box or MMSI list and maintain a bounded in-memory latest-position cache.
+        status: pending
+        verification: npm test
+      - id: AC2
+        description: Implement an AISHub adapter using username-based JSON output with strict one-request-per-minute throttling.
+        status: pending
+        verification: npm test
+      - id: AC3
+        description: Implement at least one regional/open-data REST adapter such as BarentsWatch or OpenAIS using credentials/config only when required.
+        status: pending
+        verification: npm test
+      - id: AC4
+        description: Implement adapter templates for paid BYOK providers such as MarineTraffic, VesselFinder, Spire, ORBCOMM/CommTrace, Datalastic, VesselAPI, Data Docked, and Poseidon AIS, with at least two documented providers implemented behind credential profiles.
+        status: pending
+        verification: npm test
+      - id: AC5
+        description: Maintain a provider catalogue documenting global provider coverage, auth mode, cost/quota model, supported capabilities, and implementation status.
+        status: pending
+        verification: docs-review
+
+  - id: F5
+    title: Authorized capture fixture workflow
+    phase: P1
+    status: not_implemented
+    source_docs:
+      - docs/PRD.md
+      - docs/TDD.md
+      - AGENTS.md
+    acceptance_criteria:
+      - id: AC1
+        description: Implement a CLI importer for HAR/JSON samples that redacts sensitive headers, cookies, tokens, query params, and body fields before writing fixtures.
+        status: pending
+        verification: npm test
+      - id: AC2
+        description: Generate endpoint fingerprints and schema summaries from sanitized captures without emitting credentials or replayable private session data.
+        status: pending
+        verification: npm test
+      - id: AC3
+        description: Implement a capture-fixture provider that can replay sanitized fixtures for tests and adapter development, disabled for live use by default.
+        status: pending
+        verification: npm test
+
+  - id: F6
+    title: Security, observability, and deployment readiness
+    phase: P2
+    status: not_implemented
+    source_docs:
+      - docs/PRD.md
+      - docs/TDD.md
+      - AGENTS.md
+    acceptance_criteria:
+      - id: AC1
+        description: Add secret-safe structured logging, provider status diagnostics, and request IDs without logging query credentials or raw provider responses by default.
+        status: pending
+        verification: npm test
+      - id: AC2
+        description: Add Dockerfile or deployment notes for hosting the HTTP MCP endpoint behind HTTPS.
+        status: pending
+        verification: npm run build
+      - id: AC3
+        description: Add an operator runbook covering provider credentials, rate limits, live-test toggles, and client setup.
+        status: pending
+        verification: docs-review

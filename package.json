@@ -1,0 +1,28 @@
+{
+  "name": "vessel-traffic-mcp",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Read-only MCP server for authorized vessel position and AIS-style maritime data.",
+  "type": "module",
+  "bin": {
+    "vessel-traffic-mcp": "./dist/index.js"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "lint": "tsc --noEmit -p tsconfig.json",
+    "test": "node --test test/*.test.js",
+    "dev": "npm run build && node --enable-source-maps dist/index.js"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.29.0",
+    "zod": "^4.4.3"
+  },
+  "devDependencies": {
+    "@types/node": "^25.6.0",
+    "typescript": "^6.0.3"
+  },
+  "engines": {
+    "node": ">=22.0.0"
+  }
+}
+
