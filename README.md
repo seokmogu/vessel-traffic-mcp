@@ -30,6 +30,10 @@ npm test
 npm run build
 ```
 
+The current MCP core exposes a stdio fixture server through the package binary
+`vessel-traffic-mcp`. Operator notes for this surface are in
+`docs/runbooks/stdio-fixture-server.md`.
+
 ## Autodev
 
 This repository is designed to be driven by `/Users/aktn/project/codex-autodev` using:

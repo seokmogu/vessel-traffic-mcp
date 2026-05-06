@@ -1,14 +1,23 @@
+#!/usr/bin/env node
+
+import { startStdioServer } from './server/transports/stdio.js';
+import { loadRuntimeConfig } from './config/runtime.js';
+import { redactForLog } from './util/redact.js';
+
 export const projectName = 'vessel-traffic-mcp';
 
-export function describeScaffold(): string {
-  return `${projectName}: MCP server scaffold. Implementation tasks are tracked in docs/autodev/requirements.yaml.`;
-}
+export async function main(): Promise<void> {
+  const config = loadRuntimeConfig();
 
-export function main(): void {
-  console.log(describeScaffold());
+  if (config.transport === 'stdio') {
+    await startStdioServer();
+  }
 }
 
 if (import.meta.url === `file://${process.argv[1]}`) {
-  main();
+  main().catch((error: unknown) => {
+    const message = error instanceof Error ? error.message : String(error);
+    console.error(`vessel-traffic-mcp failed to start: ${redactForLog(message)}`);
+    process.exitCode = 1;
+  });
 }
-

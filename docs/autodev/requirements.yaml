@@ -32,7 +32,7 @@ features:
     acceptance_criteria:
       - id: AC1
         description: Implement a stdio MCP server that starts from the package binary and exposes at least provider_status and data_sources tools backed by a fixture provider.
-        status: pending
+        status: implemented
         verification: npm test
       - id: AC2
         description: Implement a Streamable HTTP MCP endpoint with optional bearer-token auth and a public /health endpoint.

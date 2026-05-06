@@ -8,8 +8,9 @@
     "vessel-traffic-mcp": "./dist/index.js"
   },
   "scripts": {
-    "build": "tsc -p tsconfig.json",
+    "build": "tsc -p tsconfig.json && chmod +x dist/index.js",
     "lint": "tsc --noEmit -p tsconfig.json",
+    "pretest": "npm run build",
     "test": "node --test test/*.test.js",
     "dev": "npm run build && node --enable-source-maps dist/index.js"
   },
@@ -25,4 +26,3 @@
     "node": ">=22.0.0"
   }
 }
-
