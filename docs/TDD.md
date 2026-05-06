@@ -60,6 +60,10 @@ src/
     vessel-name-normalize.ts
     rank-candidates.ts
   capture/
+    site-profile.ts
+    recorder.ts
+    traffic-ir.ts
+    replay-validator.ts
     sanitize-har.ts
     infer-endpoints.ts
   config/
@@ -197,14 +201,31 @@ Implementation requirements:
 
 ## 9. Capture Tooling Requirements
 
+`/Users/aktn/project/api-capture` is the local reference implementation for capture orchestration. The vessel project should borrow its architecture:
+
+- Playwright-controlled browser sessions.
+- XHR/fetch capture plus HAR backup.
+- Append-only event logs for actions and API events.
+- Replay validation for endpoint stability and parameter evidence.
+- Traffic IR before OpenAPI/provider-adapter generation.
+- Supervisor/worker split with deterministic pacing.
+- Redaction before sharing, exporting, or committing.
+
 The capture importer must:
 
 - Accept HAR/JSON input from a local file path.
 - Refuse to process files containing obvious unsanitized secrets unless `--sanitize-output` is used.
 - Redact sensitive headers, cookies, query params, and body fields.
 - Produce deterministic sanitized fixtures.
-- Generate endpoint fingerprints and candidate schemas.
+- Generate endpoint fingerprints, traffic IR, and candidate schemas.
 - Never produce runnable code that includes captured credentials.
+
+Maritime-specific capture requirements:
+
+- Site profiles must express allowed origins, login/session-loss indicators, safe page scopes, delay/jitter, maximum actions, and forbidden actions.
+- Capture workers must avoid destructive account actions, fleet edits, billing pages, password/profile pages, logout, and CAPTCHA workarounds.
+- Replay workers must use authorized credentials or browser context only when the user/operator has configured that provider.
+- Captured endpoint candidates must be converted into provider-adapter tickets, not automatically enabled for live use.
 
 ## 10. Verification Strategy
 

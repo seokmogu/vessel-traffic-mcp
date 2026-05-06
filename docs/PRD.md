@@ -12,6 +12,8 @@
 
 The long-term goal is an integrated global vessel-location MCP, not a single-provider wrapper. The server should maintain a growing provider registry that covers free/open feeds, commercial APIs, regional government feeds, and authorized web-capture adapters. The system must prioritize authorized data access. Official APIs, open-data sources, and BYOK commercial API credentials are first-class. Browser-network capture is a controlled development workflow for services that present data in web UI but do not publish a suitable API, and only for operator-authorized sessions where terms allow that use.
 
+The capture workflow should reuse lessons and reusable components from the sibling project `/Users/aktn/project/api-capture`. That project already implements a local-first browser API capture harness with Playwright control, XHR/fetch/HAR recording, session artifacts, replay validation, traffic IR, OpenAPI generation, a supervisor loop, pacing, and redaction-aware reporting. `vessel-traffic-mcp` should adapt those patterns for maritime sites rather than reinventing capture orchestration from scratch.
+
 ## 2. Background And Research Notes
 
 The vessel-position ecosystem is fragmented. Some services offer official APIs, some offer free or community access with limits, and some expose useful data only in web applications.
@@ -161,6 +163,21 @@ Resolution signals:
 
 The resolver must return `needsConfirmation: true` when candidates are close or the document context is insufficient.
 
+### 6.6 Capture Harness Reuse From api-capture
+
+The sibling project `/Users/aktn/project/api-capture` is the reference implementation for browser-only API capture. Reuse or port these design ideas:
+
+- Site profiles under `config/sites/*` for domain-specific login, scope, session-loss detection, pacing, and safety policy.
+- Playwright browser control with XHR/fetch network hooks and HAR backup.
+- Session outputs such as `api_log.jsonl`, `network.har`, `events.jsonl`, and generated `openapi.json`.
+- Replay validation that calls captured requests with a fresh authorized session and compares HTTP status, business success, and response shape.
+- A normalized traffic IR such as `traffic.ndjson` and `traffic_summary.json` before generating provider adapters or OpenAPI specs.
+- Worker separation: capture worker, replay worker, schema worker, redaction worker, and report worker.
+- Supervisor pacing so broad site exploration does not hammer providers or repeat low-yield actions.
+- Secret scanner/redactor before any backup, dashboard export, fixture generation, or commit.
+
+The implementation must not import or expose `api-capture` raw sessions, logs, `.env` files, cookies, or provider credentials. Maritime capture artifacts must live under this project and must be ignored by git until sanitized.
+
 ## 7. Authorized Capture Workflow
 
 Some services may show data in a browser without publishing a suitable public API. This project may include a capture-assisted adapter workflow with these limits:
@@ -224,7 +241,7 @@ Add AISStream, AISHub, and BarentsWatch/OpenAIS support where credentials/terms 
 
 ### M4: Capture-Assisted Adapter Tooling
 
-Add sanitized HAR importer, schema inference, redaction tests, and disabled-by-default capture fixtures.
+Adapt the `/Users/aktn/project/api-capture` harness patterns for maritime sites. Add sanitized HAR/import tooling, traffic IR generation, replay validation, schema inference, redaction tests, and disabled-by-default capture fixtures.
 
 ### M5: Client Setup
 

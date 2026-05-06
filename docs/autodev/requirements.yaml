@@ -9,6 +9,9 @@ features:
       - docs/PRD.md
       - docs/TDD.md
       - AGENTS.md
+      - /Users/aktn/project/api-capture/README.md
+      - /Users/aktn/project/api-capture/ARCHITECTURE.md
+      - /Users/aktn/project/api-capture/docs/LOCAL_AGENT_HARNESS.md
     acceptance_criteria:
       - id: AC1
         description: Initialize the TypeScript Node package, docs, gitignore, and verification scripts.
@@ -168,13 +171,21 @@ features:
         status: pending
         verification: npm test
       - id: AC2
-        description: Generate endpoint fingerprints and schema summaries from sanitized captures without emitting credentials or replayable private session data.
+        description: Generate endpoint fingerprints, traffic IR, and schema summaries from sanitized captures without emitting credentials or replayable private session data.
         status: pending
         verification: npm test
       - id: AC3
         description: Implement a capture-fixture provider that can replay sanitized fixtures for tests and adapter development, disabled for live use by default.
         status: pending
         verification: npm test
+      - id: AC4
+        description: Add a maritime capture harness design based on /Users/aktn/project/api-capture patterns, including site profiles, Playwright capture, HAR backup, replay validation, traffic IR, supervisor pacing, and redaction worker.
+        status: pending
+        verification: docs-review
+      - id: AC5
+        description: Document that raw api-capture sessions, .env files, cookies, and logs are reference-only and must not be imported into this project or committed.
+        status: pending
+        verification: docs-review
 
   - id: F6
     title: Security, observability, and deployment readiness
