@@ -31,8 +31,11 @@ npm run build
 ```
 
 The current MCP core exposes a stdio fixture server through the package binary
-`vessel-traffic-mcp`. Operator notes for this surface are in
-`docs/runbooks/stdio-fixture-server.md`.
+`vessel-traffic-mcp` and a Streamable HTTP endpoint at `/mcp` when
+`VESSEL_MCP_TRANSPORT=http` is set. `/health` is public; `/mcp` requires
+`Authorization: Bearer <token>` only when `VESSEL_MCP_AUTH_TOKEN` is configured.
+Operator notes are in `docs/runbooks/stdio-fixture-server.md` and
+`docs/runbooks/streamable-http-server.md`.
 
 ## Autodev
 

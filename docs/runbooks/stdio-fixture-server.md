@@ -4,7 +4,8 @@
 
 This runbook covers the current F1.AC1 server surface: the package binary starts
 a stdio MCP server and exposes `provider_status` and `data_sources` backed by
-the local fixture provider. Streamable HTTP, live providers, and credential
+the local fixture provider. Streamable HTTP is covered separately in
+`docs/runbooks/streamable-http-server.md`; live providers and credential
 profiles are tracked by later acceptance criteria.
 
 ## Environment
@@ -17,9 +18,8 @@ npm ci
 npm run build
 ```
 
-Only `VESSEL_MCP_TRANSPORT=stdio` is supported for this criterion. Do not put
-API keys, cookies, bearer tokens, HAR files, or private captures in committed
-files.
+Set `VESSEL_MCP_TRANSPORT=stdio` for local stdio operation. Do not put API keys,
+cookies, bearer tokens, HAR files, or private captures in committed files.
 
 ## Local Verification
 

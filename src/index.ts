@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 
 import { startStdioServer } from './server/transports/stdio.js';
+import { startHttpServer } from './server/transports/http.js';
 import { loadRuntimeConfig } from './config/runtime.js';
 import { redactForLog } from './util/redact.js';
 
@@ -11,7 +12,10 @@ export async function main(): Promise<void> {
 
   if (config.transport === 'stdio') {
     await startStdioServer();
+    return;
   }
+
+  await startHttpServer(config.http);
 }
 
 if (import.meta.url === `file://${process.argv[1]}`) {

@@ -36,7 +36,7 @@ features:
         verification: npm test
       - id: AC2
         description: Implement a Streamable HTTP MCP endpoint with optional bearer-token auth and a public /health endpoint.
-        status: pending
+        status: implemented
         verification: npm test
       - id: AC3
         description: Add client setup documentation for Claude Desktop, Claude Code, ChatGPT remote MCP, and generic MCP Inspector usage.

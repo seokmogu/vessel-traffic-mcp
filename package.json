@@ -12,6 +12,8 @@
     "lint": "tsc --noEmit -p tsconfig.json",
     "pretest": "npm run build",
     "test": "node --test test/*.test.js",
+    "start": "node --enable-source-maps dist/index.js",
+    "start:http": "VESSEL_MCP_TRANSPORT=http node --enable-source-maps dist/index.js",
     "dev": "npm run build && node --enable-source-maps dist/index.js"
   },
   "dependencies": {
