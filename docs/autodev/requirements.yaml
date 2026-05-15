@@ -26,7 +26,7 @@ features:
   - id: F1
     title: MCP core transports and tool registry
     phase: P0
-    status: not_implemented
+    status: implemented
     source_docs:
       - docs/PRD.md
       - docs/TDD.md
