@@ -54,7 +54,7 @@ features:
     acceptance_criteria:
       - id: AC1
         description: Define normalized vessel identity, position, track, port-call, source metadata, provider status, and no-data result types.
-        status: pending
+        status: implemented
         verification: npm test
       - id: AC2
         description: Implement provider adapter interfaces, provider registry, provider router, credential requirement metadata, provider landing/signup URLs, rate-limit hooks, and cache TTL hooks.

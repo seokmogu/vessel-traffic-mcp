@@ -60,6 +60,43 @@ export const captureEligibilityValues = ['allowed', 'unknown', 'blocked', 'needs
 
 export type CaptureEligibility = (typeof captureEligibilityValues)[number];
 
+export const navigationStatusValues = [
+  'under_way_using_engine',
+  'at_anchor',
+  'not_under_command',
+  'restricted_maneuverability',
+  'constrained_by_draught',
+  'moored',
+  'aground',
+  'engaged_in_fishing',
+  'under_way_sailing',
+  'reserved',
+  'ais_sart_active',
+  'undefined',
+] as const;
+
+export type NavigationStatus = (typeof navigationStatusValues)[number];
+
+export const portCallEventValues = ['arrival', 'departure', 'in_port', 'transit', 'unknown'] as const;
+
+export type PortCallEvent = (typeof portCallEventValues)[number];
+
+export const noDataReasonValues = [
+  'no_provider_for_capability',
+  'no_credential_profile',
+  'provider_unavailable',
+  'no_coverage',
+  'no_recent_position',
+  'stale_position_only',
+  'rate_limited',
+  'quota_exhausted',
+  'identifier_not_found',
+  'ambiguous_identifier',
+  'unsupported_query',
+] as const;
+
+export type NoDataReason = (typeof noDataReasonValues)[number];
+
 export interface SourceMetadata {
   provider: string;
   adapterVersion: string;
@@ -156,4 +193,102 @@ export interface VesselDataProvider {
   credentialRequirement?(): CredentialRequirement;
   rateLimitPolicy?(): RateLimitPolicy;
   cacheTtlPolicy?(): CacheTtlPolicy;
+}
+
+export interface VesselIdentity {
+  mmsi?: string;
+  imo?: string;
+  name?: string;
+  callsign?: string;
+  flag?: string;
+  type?: string;
+  providerIds?: Record<string, string>;
+}
+
+export interface VesselPosition {
+  identity: VesselIdentity;
+  lat: number;
+  lon: number;
+  speedKnots?: number;
+  courseDeg?: number;
+  headingDeg?: number;
+  navigationStatus?: NavigationStatus;
+  destination?: string;
+  eta?: string;
+  observedAt?: string;
+  retrievedAt: string;
+  freshnessSeconds?: number;
+  staleReason?: string;
+  source: SourceMetadata;
+}
+
+export interface VesselTrackPoint {
+  lat: number;
+  lon: number;
+  observedAt: string;
+  speedKnots?: number;
+  courseDeg?: number;
+  headingDeg?: number;
+  navigationStatus?: NavigationStatus;
+}
+
+export interface VesselTrack {
+  identity: VesselIdentity;
+  points: VesselTrackPoint[];
+  windowStart: string;
+  windowEnd: string;
+  retrievedAt: string;
+  pointCount: number;
+  source: SourceMetadata;
+  caveats?: string[];
+}
+
+export interface PortCall {
+  identity: VesselIdentity;
+  port: {
+    name?: string;
+    unlocode?: string;
+    countryCode?: string;
+    lat?: number;
+    lon?: number;
+  };
+  event: PortCallEvent;
+  observedAt?: string;
+  arrivalAt?: string;
+  departureAt?: string;
+  voyageNumber?: string;
+  retrievedAt: string;
+  source: SourceMetadata;
+  caveats?: string[];
+}
+
+export interface NoDataResult {
+  ok: false;
+  reason: NoDataReason;
+  message: string;
+  retrievedAt: string;
+  source?: SourceMetadata;
+  upgradeHints?: ProviderUpgradeHint[];
+  caveats?: string[];
+}
+
+export interface DataResult<T> {
+  ok: true;
+  data: T;
+  retrievedAt: string;
+  source: SourceMetadata;
+  freshnessSeconds?: number;
+  staleReason?: string;
+  caveats?: string[];
+  upgradeHints?: ProviderUpgradeHint[];
+}
+
+export type ProviderResult<T> = DataResult<T> | NoDataResult;
+
+export function isNoDataResult<T>(result: ProviderResult<T>): result is NoDataResult {
+  return result.ok === false;
+}
+
+export function isDataResult<T>(result: ProviderResult<T>): result is DataResult<T> {
+  return result.ok === true;
 }
