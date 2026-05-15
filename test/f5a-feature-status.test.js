@@ -95,16 +95,16 @@ test('F5A acceptance criteria descriptions still match the F5A.AC1/AC2/AC3 PRD c
   assert.match(f5a, /id: AC3[\s\S]{0,600}?capture private sessions/i);
 });
 
-test('promoting F5A does not promote remaining not_implemented parent features (F2B, F4, F6, F7)', () => {
+test('promoting F5A does not promote remaining not_implemented parent features (F2B, F4, F7)', () => {
   const reqs = readRequirements();
 
   // F1, F2, F3, F3B, F4A, F5 are implemented (asserted by their own feature-status tests) and excluded.
   // F5A is the promotion under test and excluded here.
-  // F2B, F4, F6, F7 each have their own followup gate and remain not_implemented.
+  // F6 is implemented (asserted by f6-feature-status.test.js) and excluded here.
+  // F2B, F4, F7 each have their own followup gate and remain not_implemented.
   const guards = [
     ['F2B', 'F3'],
     ['F4', 'F4A'],
-    ['F6', 'F7'],
     ['F7', null],
   ];
 

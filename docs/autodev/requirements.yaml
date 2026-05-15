@@ -243,7 +243,7 @@ features:
   - id: F6
     title: Security, observability, and deployment readiness
     phase: P2
-    status: not_implemented
+    status: implemented
     source_docs:
       - docs/PRD.md
       - docs/TDD.md

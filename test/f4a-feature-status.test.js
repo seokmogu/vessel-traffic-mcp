@@ -94,7 +94,7 @@ test('F4A acceptance criteria descriptions still match the F4A.AC1/AC2/AC3/AC4 P
   assert.match(f4a, /id: AC4[\s\S]{0,500}?signup URLs/i);
 });
 
-test('promoting F4A does not promote other not_implemented parent features (F2B, F4, F6, F7 remain not_implemented)', () => {
+test('promoting F4A does not promote other not_implemented parent features (F2B, F4, F7 remain not_implemented)', () => {
   const reqs = readRequirements();
 
   // F1, F2, F3, F3B are implemented (asserted by their own feature-status tests) and excluded here.
@@ -104,10 +104,10 @@ test('promoting F4A does not promote other not_implemented parent features (F2B,
   // is implemented but the F4 parent has its own followup gate).
   // F5 is implemented (asserted by f5-feature-status.test.js) and excluded here.
   // F5A is implemented (asserted by f5a-feature-status.test.js) and excluded here.
+  // F6 is implemented (asserted by f6-feature-status.test.js) and excluded here.
   const guards = [
     ['F2B', 'F3'],
     ['F4', 'F4A'],
-    ['F6', 'F7'],
     ['F7', null],
   ];
 

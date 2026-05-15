@@ -101,17 +101,17 @@ test('F5 acceptance criteria descriptions still match the F5.AC1/AC2/AC3/AC4/AC5
   assert.match(f5, /id: AC5[\s\S]{0,500}?not be imported into this project/i);
 });
 
-test('promoting F5 does not promote remaining not_implemented parent features (F2B, F4, F6, F7)', () => {
+test('promoting F5 does not promote remaining not_implemented parent features (F2B, F4, F7)', () => {
   const reqs = readRequirements();
 
   // F1, F2, F3, F3B, F4A are implemented (asserted by their own feature-status tests) and excluded.
   // F5 is the promotion under test and excluded here.
   // F2B parent stays not_implemented until its own followup. F4 stays not_implemented likewise.
   // F5A is implemented (asserted by f5a-feature-status.test.js) and excluded here.
+  // F6 is implemented (asserted by f6-feature-status.test.js) and excluded here.
   const guards = [
     ['F2B', 'F3'],
     ['F4', 'F4A'],
-    ['F6', 'F7'],
     ['F7', null],
   ];
 

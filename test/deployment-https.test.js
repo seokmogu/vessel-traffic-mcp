@@ -331,17 +331,18 @@ test('deployment-https runbook keeps /mcp behind a bearer in every documented to
   );
 });
 
-test('F6 parent feature remains not_implemented while sibling criteria are still pending', () => {
-  // Per the run brief: closing F6.AC2 must not silently flip the
-  // parent feature to implemented while other F6 criteria may still
-  // be open in a future audit.
+test('F6 parent feature is flipped to implemented now that AC1, AC2, AC3 are all green', () => {
+  // F6.FOLLOWUP closes the last F6 gap: with the observability,
+  // deployment-https, and operator runbook tests all green and their
+  // acceptance criteria already at status: implemented, the parent
+  // feature is promoted by this followup.
   const reqs = read(REQUIREMENTS_URL);
   const f6Index = reqs.indexOf('id: F6');
   assert.ok(f6Index > 0, 'requirements.yaml must contain feature F6');
   const f6Header = reqs.slice(f6Index, f6Index + 400);
   assert.match(
     f6Header,
-    /title: Security, observability, and deployment readiness[\s\S]*?status: not_implemented/,
-    'F6 parent feature must remain not_implemented per the run brief',
+    /title: Security, observability, and deployment readiness[\s\S]*?status: implemented/,
+    'F6 parent feature must be promoted to implemented by F6.FOLLOWUP',
   );
 });
