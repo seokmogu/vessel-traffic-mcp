@@ -162,7 +162,7 @@ features:
   - id: F4A
     title: Global provider discovery catalog
     phase: P1
-    status: not_implemented
+    status: implemented
     source_docs:
       - docs/PRD.md
       - docs/TDD.md

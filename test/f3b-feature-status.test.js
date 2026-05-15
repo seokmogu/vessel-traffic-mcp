@@ -89,10 +89,10 @@ test('promoting F3B does not promote downstream parent feature statuses (F4, F4A
   // F3B is the promotion under test and excluded here.
   // F2B remains not_implemented at the parent level even though its ACs are implemented;
   // it is not yet promoted by its own followup, so it stays in the downstream guard list.
+  // F4A is implemented (asserted by f4a-feature-status.test.js) and excluded here.
   const guards = [
     ['F2B', 'F3'],
     ['F4', 'F4A'],
-    ['F4A', 'F5'],
     ['F5', 'F5A'],
     ['F5A', 'F6'],
     ['F6', 'F7'],

@@ -81,11 +81,11 @@ test('promoting F2 does not promote downstream parent feature statuses (F2B, F4,
   // F2 is the promotion under test and excluded here.
   // F3 is implemented (asserted by f3-feature-status.test.js) and excluded here.
   // F3B is implemented (asserted by f3b-feature-status.test.js) and excluded here.
+  // F4A is implemented (asserted by f4a-feature-status.test.js) and excluded here.
   // Each entry: [id, nextIdForSlice]. Order tracks the document so slicing stays correct.
   const guards = [
     ['F2B', 'F3'],
     ['F4', 'F4A'],
-    ['F4A', 'F5'],
     ['F5', 'F5A'],
     ['F5A', 'F6'],
     ['F6', 'F7'],

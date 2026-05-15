@@ -75,10 +75,11 @@ test('promoting F1 does not promote downstream parent feature statuses (F2B, F4,
   // by test/f3-feature-status.test.js. Listing it here would conflict with that promotion.
   // F3B is intentionally excluded — it is promoted to implemented by F3B.FOLLOWUP and asserted
   // by test/f3b-feature-status.test.js. Listing it here would conflict with that promotion.
+  // F4A is intentionally excluded — it is promoted to implemented by F4A.FOLLOWUP and asserted
+  // by test/f4a-feature-status.test.js. Listing it here would conflict with that promotion.
   const guards = [
     ['F2B', 'F3'],
     ['F4', 'F4A'],
-    ['F4A', 'F5'],
     ['F5', 'F5A'],
     ['F5A', 'F6'],
     ['F6', 'F7'],
