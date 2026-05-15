@@ -65,15 +65,16 @@ test('F1 acceptance criteria descriptions still match the F1.AC1/AC2/AC3 PRD con
   assert.match(f1, /id: AC3[\s\S]{0,400}?MCP Inspector/);
 });
 
-test('promoting F1 does not promote downstream parent feature statuses (F2B, F3, F3B, F4, F4A, F5, F5A, F6, F7 remain not_implemented)', () => {
+test('promoting F1 does not promote downstream parent feature statuses (F2B, F3B, F4, F4A, F5, F5A, F6, F7 remain not_implemented)', () => {
   const reqs = readRequirements();
 
   // Each entry: [id, nextIdForSlice]. Order tracks the document so slicing stays correct.
   // F2 is intentionally excluded — it is promoted to implemented by F2.FOLLOWUP and asserted
   // by test/f2-feature-status.test.js. Listing it here would conflict with that promotion.
+  // F3 is intentionally excluded — it is promoted to implemented by F3.FOLLOWUP and asserted
+  // by test/f3-feature-status.test.js. Listing it here would conflict with that promotion.
   const guards = [
     ['F2B', 'F3'],
-    ['F3', 'F3B'],
     ['F3B', 'F4'],
     ['F4', 'F4A'],
     ['F4A', 'F5'],
