@@ -80,7 +80,7 @@ features:
         verification: npm test
       - id: AC2
         description: Implement paid-provider routing inputs such as provider, credentialProfile, and fallbackPolicy without logging or echoing raw keys.
-        status: pending
+        status: implemented
         verification: npm test
       - id: AC3
         description: Add a disabled-by-default one-time request credential path that is in-memory only, redacted from errors/logs, and covered by tests.
