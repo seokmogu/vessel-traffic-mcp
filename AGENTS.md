@@ -25,6 +25,6 @@ Build `vessel-traffic-mcp`: a read-only Model Context Protocol server that lets 
 - MCP SDK: `@modelcontextprotocol/sdk`.
 - Primary transports: stdio for local Claude Desktop/Claude Code use, Streamable HTTP for remote ChatGPT/Claude connector use. SSE can be added only as compatibility fallback.
 - Provider integrations must use adapter interfaces. Avoid provider-specific logic leaking into MCP tool handlers.
-- For browser-only API capture, reference `/Users/aktn/project/api-capture` architecture and docs, especially Playwright network capture, HAR backup, replay validation, traffic IR, supervisor pacing, and redaction. Do not read or copy its `.env`, raw sessions, raw logs, cookies, or credentials.
+- For browser-only API capture, reference `/Users/aktn/project/api-capture` architecture and docs, especially Playwright network capture, HAR backup, replay validation, traffic IR, supervisor pacing, and redaction. Do not read or copy its `.env`, raw sessions, raw logs, cookies, or credentials. The reference-only boundary is formalized in `docs/runbooks/api-capture-reference-only.md` (F5.AC5): raw api-capture sessions, `.env` files, cookies, and logs must never be imported into this project or committed.
 - Tests should use sanitized fixtures and local fake providers. Do not call paid or live providers in default CI.
 - Live-provider tests must be opt-in through environment variables and skipped by default.

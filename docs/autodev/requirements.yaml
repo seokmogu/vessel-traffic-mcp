@@ -212,7 +212,7 @@ features:
         verification: docs-review
       - id: AC5
         description: Document that raw api-capture sessions, .env files, cookies, and logs are reference-only and must not be imported into this project or committed.
-        status: pending
+        status: implemented
         verification: docs-review
 
   - id: F5A

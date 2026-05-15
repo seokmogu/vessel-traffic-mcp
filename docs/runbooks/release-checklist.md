@@ -62,7 +62,9 @@ documentation examples). No real values.
       fixtures (`npm run capture:import`).
 - [ ] `/Users/aktn/project/api-capture` raw sessions, `.env`, cookies,
       and logs are **not** present in this tree. The api-capture path
-      is a reference for architecture only.
+      is a reference for architecture only — see
+      `docs/runbooks/api-capture-reference-only.md` (F5.AC5) for the
+      forbidden artifact list and reviewer checklist.
 
 ## 4. Release assets are in place
 

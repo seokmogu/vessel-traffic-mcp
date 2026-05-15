@@ -34,7 +34,10 @@ that violate them will be closed.
   default.
 - `/Users/aktn/project/api-capture` is referenced for architecture
   patterns only. Do not import or commit its raw sessions, `.env`
-  files, cookies, logs, or credentials.
+  files, cookies, logs, or credentials. The full reference-only
+  contract — including the forbidden artifact list and reviewer
+  checklist — lives in
+  `docs/runbooks/api-capture-reference-only.md` (F5.AC5).
 
 ## Getting Started
 

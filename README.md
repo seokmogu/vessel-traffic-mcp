@@ -163,6 +163,9 @@ docs/
   the Streamable HTTP MCP endpoint.
 - [`docs/runbooks/release-checklist.md`](./docs/runbooks/release-checklist.md)
   — pre-release secret-safety checklist.
+- [`docs/runbooks/api-capture-reference-only.md`](./docs/runbooks/api-capture-reference-only.md)
+  — F5.AC5 contract: raw `api-capture` sessions, `.env`, cookies, and
+  logs are reference-only and must not be imported or committed.
 
 ## Contributing
 

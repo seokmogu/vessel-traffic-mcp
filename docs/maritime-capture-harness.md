@@ -10,7 +10,8 @@ boundaries are.
 
 It does **not** restate per-CLI usage — those live in the runbooks
 linked below. It does **not** define the `api-capture` reference-only
-boundary either; that contract is owned by `F5.AC5`.
+boundary either; that contract is owned by `F5.AC5` and lives in
+`docs/runbooks/api-capture-reference-only.md`.
 
 ## 1. Sources and scope
 
@@ -305,12 +306,12 @@ each backed by code and at least one deterministic test:
 - `docs/runbooks/capture-traffic-ir.md` — `F5.AC2` IR/fingerprint CLI.
 - `docs/runbooks/capture-fixture-replay.md` — `F5.AC3` capture-fixture
   provider.
-- `F5.AC5` (pending) owns the explicit "raw api-capture sessions,
-  `.env`, cookies, and logs are reference-only and must not be
-  committed" contract. This design document does not redefine that
-  boundary; see `AGENTS.md` "Implementation Preferences" and
-  `docs/PRD.md` §6.6 / §7.1 for the current language until F5.AC5
-  formalises it in its own runbook.
+- `docs/runbooks/api-capture-reference-only.md` — `F5.AC5` owns the
+  explicit "raw api-capture sessions, `.env`, cookies, and logs are
+  reference-only and must not be imported into this project or
+  committed" contract, including forbidden artifact list, reviewer
+  checklist, and operator checklist. This design document defers the
+  boundary definition to that runbook.
 - `F5A.AC3` (pending) owns the operator runbook for performing
   authorized maritime captures.
 
