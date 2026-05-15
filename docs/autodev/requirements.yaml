@@ -196,7 +196,7 @@ features:
     acceptance_criteria:
       - id: AC1
         description: Implement a CLI importer for HAR/JSON samples that redacts sensitive headers, cookies, tokens, query params, and body fields before writing fixtures.
-        status: pending
+        status: implemented
         verification: npm test
       - id: AC2
         description: Generate endpoint fingerprints, traffic IR, and schema summaries from sanitized captures without emitting credentials or replayable private session data.

@@ -11,3 +11,5 @@ captures/private/
 state/
 config/credential-profiles.local.json
 config/credential-profiles.*.local.json
+fixtures/captures/raw/
+fixtures/captures/*.private.json

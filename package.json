@@ -5,16 +5,18 @@
   "description": "Read-only MCP server for authorized vessel position and AIS-style maritime data.",
   "type": "module",
   "bin": {
-    "vessel-traffic-mcp": "./dist/index.js"
+    "vessel-traffic-mcp": "./dist/index.js",
+    "vessel-capture-import": "./dist/capture/cli.js"
   },
   "scripts": {
-    "build": "tsc -p tsconfig.json && chmod +x dist/index.js",
+    "build": "tsc -p tsconfig.json && chmod +x dist/index.js dist/capture/cli.js",
     "lint": "tsc --noEmit -p tsconfig.json",
     "pretest": "npm run build",
     "test": "node --test test/*.test.js",
     "start": "node --enable-source-maps dist/index.js",
     "start:http": "VESSEL_MCP_TRANSPORT=http node --enable-source-maps dist/index.js",
-    "dev": "npm run build && node --enable-source-maps dist/index.js"
+    "dev": "npm run build && node --enable-source-maps dist/index.js",
+    "capture:import": "node --enable-source-maps dist/capture/cli.js"
   },
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.29.0",
