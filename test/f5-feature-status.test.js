@@ -101,18 +101,16 @@ test('F5 acceptance criteria descriptions still match the F5.AC1/AC2/AC3/AC4/AC5
   assert.match(f5, /id: AC5[\s\S]{0,500}?not be imported into this project/i);
 });
 
-test('promoting F5 does not promote remaining not_implemented parent features (F2B, F4, F5A, F6, F7)', () => {
+test('promoting F5 does not promote remaining not_implemented parent features (F2B, F4, F6, F7)', () => {
   const reqs = readRequirements();
 
   // F1, F2, F3, F3B, F4A are implemented (asserted by their own feature-status tests) and excluded.
   // F5 is the promotion under test and excluded here.
   // F2B parent stays not_implemented until its own followup. F4 stays not_implemented likewise.
-  // F5A is intentionally separate from F5; it tracks the operator-only maritime capture program
-  // and remains not_implemented until F5A.FOLLOWUP lands.
+  // F5A is implemented (asserted by f5a-feature-status.test.js) and excluded here.
   const guards = [
     ['F2B', 'F3'],
     ['F4', 'F4A'],
-    ['F5A', 'F6'],
     ['F6', 'F7'],
     ['F7', null],
   ];
@@ -338,9 +336,10 @@ test('F5.AC4 maritime capture harness design doc is present and reports the new 
       `F5.AC4 design doc must mention "${term}" so the AC4 scope is explicit`,
     );
   }
-  // After F5.FOLLOWUP the doc owns the new parent-status statement.
+  // After F5.FOLLOWUP the doc owns the F5 parent-status statement.
   assert.match(text, /Parent feature `?F5`?[\s\S]{0,80}?implemented/i);
-  assert.match(text, /F5A[\s\S]{0,120}?not[_-]implemented/i);
+  // After F5A.FOLLOWUP, F5A is also promoted; the design doc must reflect that.
+  assert.match(text, /Parent feature `?F5A`?[\s\S]{0,160}?implemented/i);
 });
 
 test('F5.AC5 api-capture reference-only runbook is still the authoritative boundary doc', () => {

@@ -312,14 +312,21 @@ each backed by code and at least one deterministic test:
   committed" contract, including forbidden artifact list, reviewer
   checklist, and operator checklist. This design document defers the
   boundary definition to that runbook.
-- `F5A.AC3` (pending) owns the operator runbook for performing
-  authorized maritime captures.
+- `docs/runbooks/capture-execution.md` — `F5A.AC3` operator runbook
+  for performing authorized maritime captures, including raw artifact
+  location, sanitized fixture promotion, and the rationale for keeping
+  default autodev/CI off live paid providers.
 
 Parent feature `F5` is now `implemented` because all five F5 ACs
 (`F5.AC1`–`F5.AC5`) have shipped and are covered by deterministic
 tests; the promotion lives in `docs/autodev/requirements.yaml` and is
 guarded by `test/f5-feature-status.test.js`. `F5.AC4`'s scope is
 satisfied by this design synthesis and the supporting code/tests
-cited above. The downstream `F5A` series ACs are tracked separately
-and `F5A` remains `not_implemented` at the parent level until its own
-followup promotion lands.
+cited above. Parent feature `F5A` is now `implemented` as well —
+after `F5A.FOLLOWUP`, the three F5A ACs (capture sites/queue, the
+operator-only workflow that reuses api-capture patterns, and the
+authorized-captures runbook) are all shipped and covered. The F5A
+promotion is guarded by `test/f5a-feature-status.test.js` and
+verified end-to-end by `test/capture-sites-queue.test.js`,
+`test/capture-workflow.test.js`, and
+`test/capture-execution-runbook.test.js`.

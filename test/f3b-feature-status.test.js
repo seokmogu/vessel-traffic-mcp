@@ -82,7 +82,7 @@ test('F3B acceptance criteria descriptions still match the F3B.AC1/AC2/AC3/AC4 P
   assert.match(f3b, /id: AC4[\s\S]{0,400}?stale-data/i);
 });
 
-test('promoting F3B does not promote downstream parent feature statuses (F4, F5A, F6, F7 remain not_implemented)', () => {
+test('promoting F3B does not promote downstream parent feature statuses (F4, F6, F7 remain not_implemented)', () => {
   const reqs = readRequirements();
 
   // F1, F2, F3 are implemented (asserted by their own feature-status tests) and excluded here.
@@ -91,10 +91,10 @@ test('promoting F3B does not promote downstream parent feature statuses (F4, F5A
   // it is not yet promoted by its own followup, so it stays in the downstream guard list.
   // F4A is implemented (asserted by f4a-feature-status.test.js) and excluded here.
   // F5 is implemented (asserted by f5-feature-status.test.js) and excluded here.
+  // F5A is implemented (asserted by f5a-feature-status.test.js) and excluded here.
   const guards = [
     ['F2B', 'F3'],
     ['F4', 'F4A'],
-    ['F5A', 'F6'],
     ['F6', 'F7'],
     ['F7', null],
   ];

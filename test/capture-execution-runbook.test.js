@@ -205,7 +205,7 @@ test('README, AGENTS, and CONTRIBUTING link the capture-execution runbook', () =
   );
 });
 
-test('F5A.AC3 status in requirements.yaml is flipped to implemented; parent F5A remains not_implemented', () => {
+test('F5A.AC3 status in requirements.yaml is flipped to implemented; parent F5A is implemented after F5A.FOLLOWUP', () => {
   const reqs = readFileSync(REQUIREMENTS_URL, 'utf8');
 
   const f5aIndex = reqs.indexOf('id: F5A');
@@ -213,11 +213,14 @@ test('F5A.AC3 status in requirements.yaml is flipped to implemented; parent F5A 
   const f6Index = reqs.indexOf('id: F6', f5aIndex);
   const f5aBlock = reqs.slice(f5aIndex, f6Index > 0 ? f6Index : undefined);
 
-  // Parent feature stays not_implemented (other ACs may still be pending).
+  // After F5A.FOLLOWUP every F5A child AC is implemented, so the parent
+  // feature is promoted in lock-step. The dedicated promotion guard lives
+  // in test/f5a-feature-status.test.js; here we just lock the parent-status
+  // header so this runbook test stays consistent with the requirements file.
   assert.match(
     f5aBlock,
-    /id: F5A[\s\S]{0,400}?status: not_implemented/,
-    'F5A parent feature status must remain not_implemented',
+    /id: F5A[\s\S]{0,400}?status: implemented/,
+    'F5A parent feature status must be flipped to implemented after F5A.FOLLOWUP',
   );
 
   const ac3Index = f5aBlock.indexOf('id: AC3');

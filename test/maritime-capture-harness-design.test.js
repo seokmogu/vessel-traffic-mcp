@@ -101,23 +101,22 @@ test('design doc documents the live-capture gating invariants', () => {
   }
 });
 
-test('design doc tracks the F5 parent feature status (now implemented, with F5A still pending)', () => {
+test('design doc tracks the F5 and F5A parent feature statuses (both implemented after F5A.FOLLOWUP)', () => {
   const text = readDoc();
   assert.ok(
     text.includes('F5.AC4'),
     'design doc must reference F5.AC4 so the acceptance criterion mapping is explicit',
   );
-  // After F5.FOLLOWUP, the parent feature F5 is promoted to implemented in
-  // requirements.yaml. The design doc must report the current parent status
-  // and must still call out that F5A remains not_implemented so a reader
-  // does not assume the whole capture program is shipped.
+  // After F5.FOLLOWUP, F5 is promoted to implemented. After F5A.FOLLOWUP,
+  // F5A is also promoted; the design doc must report both parent statuses
+  // so a reader knows the whole capture program is now shipped.
   assert.ok(
     /Parent feature `?F5`?[\s\S]{0,80}?implemented/i.test(text),
     'design doc must explicitly state that parent feature F5 is now implemented',
   );
   assert.ok(
-    /F5A[\s\S]{0,120}?not[_-]implemented/i.test(text),
-    'design doc must still call out that F5A remains not_implemented',
+    /Parent feature `?F5A`?[\s\S]{0,160}?implemented/i.test(text),
+    'design doc must explicitly state that parent feature F5A is now implemented',
   );
 });
 

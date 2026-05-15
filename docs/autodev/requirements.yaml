@@ -218,7 +218,7 @@ features:
   - id: F5A
     title: Maritime capture execution program based on api-capture
     phase: P1
-    status: not_implemented
+    status: implemented
     source_docs:
       - docs/PRD.md
       - docs/TDD.md
