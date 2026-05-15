@@ -97,6 +97,11 @@ Terminate TLS at a reverse proxy, load balancer, or platform edge before
 exposing `/mcp` remotely. Keep `VESSEL_MCP_AUTH_TOKEN` in the deployment secret
 manager and rotate it when client access changes.
 
+For the full deployment contract — multi-stage `Dockerfile`,
+`.dockerignore` secret boundary, nginx/Caddy/managed-platform HTTPS
+topologies, token rotation, and the F6.AC2 verification gate — see
+[`docs/runbooks/deployment-https.md`](./deployment-https.md).
+
 Keep the server read-only: MCP tools must not mutate provider accounts, fleets,
 billing settings, saved searches, or user profiles. Treat missing/stale AIS data
 as a valid result state once live providers are added, not as an infrastructure

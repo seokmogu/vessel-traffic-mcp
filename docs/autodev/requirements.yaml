@@ -255,7 +255,7 @@ features:
         verification: npm test
       - id: AC2
         description: Add Dockerfile or deployment notes for hosting the HTTP MCP endpoint behind HTTPS.
-        status: pending
+        status: implemented
         verification: npm run build
       - id: AC3
         description: Add an operator runbook covering provider credentials, rate limits, live-test toggles, and client setup.

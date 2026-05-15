@@ -155,6 +155,9 @@ docs/
 - [`docs/runbooks/operator.md`](./docs/runbooks/operator.md) —
   end-to-end operator runbook (credentials, rate limits, live-test
   toggles, client setup).
+- [`docs/runbooks/deployment-https.md`](./docs/runbooks/deployment-https.md)
+  — Dockerfile and HTTPS reverse-proxy deployment notes for hosting
+  the Streamable HTTP MCP endpoint.
 - [`docs/runbooks/release-checklist.md`](./docs/runbooks/release-checklist.md)
   — pre-release secret-safety checklist.
 
