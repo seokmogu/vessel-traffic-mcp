@@ -182,7 +182,7 @@ features:
         verification: npm test
       - id: AC4
         description: Add routing metadata so no-key MCP setup uses terrestrial AIS first and returns paid/satellite provider signup URLs when no terrestrial source can satisfy the request.
-        status: pending
+        status: implemented
         verification: npm test
 
   - id: F5
