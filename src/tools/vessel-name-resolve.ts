@@ -8,6 +8,7 @@ import {
   type ProviderUpgradeHint,
   type VesselDataProvider,
   type VesselIdentity,
+  type VesselPosition,
   type VesselSearchResult,
 } from '../providers/types.js';
 import {
@@ -58,6 +59,7 @@ export interface VesselResolutionCandidate {
   confidence: 'high' | 'medium' | 'low';
   needsConfirmation: boolean;
   score: number;
+  latestPosition?: VesselPosition;
 }
 
 export function normalizeVesselName(raw: string): string {
@@ -302,6 +304,40 @@ function tieBreakKey(identity: VesselIdentity): string {
   return `${identity.mmsi ?? '~'}|${identity.imo ?? '~'}|${(identity.name ?? '~').toUpperCase()}`;
 }
 
+interface PositionEnrichment {
+  caveats: string[];
+  upgradeHints: ProviderUpgradeHint[];
+}
+
+async function enrichWithLatestPosition(
+  provider: VesselDataProvider,
+  candidates: VesselResolutionCandidate[],
+): Promise<PositionEnrichment> {
+  const aggregateCaveats: string[] = [];
+  const aggregateHints: ProviderUpgradeHint[] = [];
+  if (!provider.latestPosition) {
+    return { caveats: aggregateCaveats, upgradeHints: aggregateHints };
+  }
+  for (const candidate of candidates) {
+    const { mmsi, imo } = candidate.identity;
+    if (!mmsi && !imo) continue;
+    let result;
+    try {
+      result = await provider.latestPosition({ mmsi, imo });
+    } catch {
+      continue;
+    }
+    if (isDataResult<VesselPosition>(result)) {
+      candidate.latestPosition = result.data;
+      if (result.caveats) aggregateCaveats.push(...result.caveats);
+      if (result.upgradeHints) aggregateHints.push(...result.upgradeHints);
+    } else if (result.upgradeHints) {
+      aggregateHints.push(...result.upgradeHints);
+    }
+  }
+  return { caveats: aggregateCaveats, upgradeHints: aggregateHints };
+}
+
 async function gatherPortCallEvidence(
   provider: VesselDataProvider,
   identities: ReadonlyArray<VesselIdentity>,
@@ -440,20 +476,42 @@ export async function vesselNameResolve(
     return tieBreakKey(a.identity).localeCompare(tieBreakKey(b.identity));
   });
 
-  if (candidates.length > 1) {
-    const top = candidates[0];
-    const next = candidates[1];
-    if (top.confidence === 'high' && top.score - next.score < 10) {
-      // Close runner-up at high confidence — flag confirmation to avoid silent collisions.
-      top.needsConfirmation = true;
+  const limited = input.limit && input.limit > 0 ? candidates.slice(0, input.limit) : candidates;
+
+  if (limited.length > 1) {
+    // Any runner-up within a 10-point score window of the top is treated as a
+    // near-tie that needs human confirmation regardless of individual
+    // confidence. This catches the case where multiple candidates were
+    // promoted to `high` by overlapping identifier hints and prevents silent
+    // collisions.
+    const topScore = limited[0].score;
+    for (let i = 1; i < limited.length; i += 1) {
+      if (topScore - limited[i].score < 10) {
+        limited[0].needsConfirmation = true;
+        limited[i].needsConfirmation = true;
+      }
     }
   }
 
-  const limited = input.limit && input.limit > 0 ? candidates.slice(0, input.limit) : candidates;
+  const positionEnrichment = await enrichWithLatestPosition(resolved.provider, limited);
+
+  const mergedCaveats = [
+    ...(searchResult.caveats ?? []),
+    ...positionEnrichment.caveats,
+  ];
+  const dedupedCaveats: string[] = [];
+  const caveatSeen = new Set<string>();
+  for (const c of mergedCaveats) {
+    if (caveatSeen.has(c)) continue;
+    caveatSeen.add(c);
+    dedupedCaveats.push(c);
+  }
+
   const upgradeHints: ProviderUpgradeHint[] | undefined = mergeUpgradeHints(
-    searchResult.upgradeHints,
-    resolved.upgradeHints,
+    mergeUpgradeHints(searchResult.upgradeHints, resolved.upgradeHints),
+    positionEnrichment.upgradeHints,
   );
+
   return {
     ok: true,
     data: {
@@ -463,7 +521,7 @@ export async function vesselNameResolve(
     },
     retrievedAt: searchResult.retrievedAt,
     source: searchResult.source,
-    caveats: searchResult.caveats ?? [],
+    caveats: dedupedCaveats,
     upgradeHints,
   };
 }

@@ -122,7 +122,7 @@ features:
         verification: npm test
       - id: AC3
         description: Return ranked candidates with matchedSignals, missingSignals, latestPosition when available, confidence, and needsConfirmation for ambiguous results.
-        status: pending
+        status: implemented
         verification: npm test
       - id: AC4
         description: Return structured no-data and stale-data states instead of generic failures for unavailable AIS data.
