@@ -47,7 +47,7 @@ features:
   - id: F2
     title: Normalized provider model and routing layer
     phase: P0
-    status: not_implemented
+    status: implemented
     source_docs:
       - docs/PRD.md
       - docs/TDD.md
