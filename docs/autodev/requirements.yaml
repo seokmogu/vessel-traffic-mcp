@@ -208,7 +208,7 @@ features:
         verification: npm test
       - id: AC4
         description: Add a maritime capture harness design based on /Users/aktn/project/api-capture patterns, including site profiles, Playwright capture, HAR backup, replay validation, traffic IR, supervisor pacing, and redaction worker.
-        status: pending
+        status: implemented
         verification: docs-review
       - id: AC5
         description: Document that raw api-capture sessions, .env files, cookies, and logs are reference-only and must not be imported into this project or committed.
