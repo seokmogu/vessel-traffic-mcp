@@ -44,6 +44,11 @@ Probe queries:
 
 Best current public candidate for the full chain.
 
+Adapter status: `src/providers/shipfinder.ts` implements the captured
+autocomplete and `GetShip` shapes behind an explicit `shipfinder` provider.
+The default MCP registry remains fixture-only; register/select
+`provider: "shipfinder"` deliberately when testing this public endpoint.
+
 Search / autocomplete:
 
 ```text
@@ -89,8 +94,14 @@ Observed response fields:
 
 Observed `EVER GIVEN` sample used `mmsi=353136000` and returned
 `imo=9811000`, `name=EVER GIVEN`, `callsign=H3RC`. The captured `lat`,
-`lon`, `cog`, and `hdg` values appear scaled and need a small decoder
-validation before adapter implementation.
+`lon`, `cog`, and `hdg` values were validated in the adapter tests as scaled
+fields: latitude/longitude divide by `1_000_000`, and course/heading divide by
+`100` when outside normal degree ranges.
+
+Current live check note (2026-05-18 Asia/Seoul): direct non-browser POSTs to
+`/ship/GetShip` can return `status=2` with an abnormal-access/browser-refresh
+message. The adapter treats those responses as `provider_unavailable` rather
+than attempting to bypass the browser verification flow.
 
 Related endpoint:
 

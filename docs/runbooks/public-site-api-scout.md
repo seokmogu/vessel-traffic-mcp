@@ -84,13 +84,15 @@ Rules for this scout:
 - api-capture session: `/Users/aktn/project/api-capture/sessions/recon_20260517T141130_9211e4`
 - Access result: public site loaded without login.
 - Endpoint inventory count: 18 signatures.
-- Candidate vessel/map endpoint:
-  - Method: `POST`
-  - Host: `www.shipfinder.com`
-  - Path: `/Ship/getships`
-  - Observed from pages:
-    - `/`
-    - `/special/hormuz`
+- Candidate vessel endpoints now promoted into the explicit `shipfinder`
+  adapter:
+  - `GET https://searchv3.shipfinder.com/shipdata/search3.ashx?f=auto&kw=<query>`
+  - `GET https://searchv3.shipfinder.com/shipdata/search3.ashx?f=srch&kw=<query>`
+  - `POST https://www.shipfinder.com/ship/GetShip` with
+    `application/x-www-form-urlencoded` body `mmsi=<mmsi>`
+- Related map/fleet endpoint:
+  - `POST https://www.shipfinder.com/Ship/getships`
+  - Observed from `/` and `/special/hormuz`
 - Related public request shapes:
   - `GET /Special/CrossStraitOfHormuzDetail?date=...`
   - `GET /Special/CrossStraitOfHormuzStats`
@@ -98,7 +100,10 @@ Rules for this scout:
   - `GET /Special/GetMacroIndex30Days`
 - Login/account signal:
   - Public load triggered `GET /Home/Login?ReturnUrl=...` for user settings/guidance calls. Treat those account calls as excluded; do not authenticate.
-- Adapter candidate status: **candidate**, pending request-body shape sanitization and terms/rate review.
+- Adapter candidate status: **implemented as explicit adapter candidate**.
+  Keep it out of default routing until terms/rate review and browser
+  verification behavior are settled; direct non-browser `GetShip` calls can
+  return abnormal-access responses.
 
 ### BoatNerd AIS
 
@@ -150,7 +155,9 @@ Rules for this scout:
 
 1. BoatNerd AIS — clean public JSON endpoint, limited regional coverage.
 2. MyShipTracking — public map endpoint with viewport query.
-3. ShipFinder — public map endpoint, but request-body shape needs sanitized extraction.
+3. ShipFinder — explicit adapter candidate implemented for autocomplete +
+   `GetShip`; default routing remains disabled pending terms/rate and
+   browser-verification review.
 4. ShipXplorer — public map/feed shapes; strict boundary around subscription features.
 5. Official/open APIs — BarentsWatch/OpenAIS/AISStream/AISHub/etc. where terms and auth are explicit.
 6. Paid providers — MarineTraffic/VesselFinder/Spire/Datalastic/etc. only through BYOK credential profiles and official APIs, not public-page scraping.

@@ -177,12 +177,18 @@ Always prefer an official API once one becomes available.
 | Provider | Capture/API status |
 | --- | --- |
 | MyShipTracking web UI | Web UI plus official API; prefer the official API and capture only for authorized UI-only workflows not covered by the API. |
+| ShipFinder | Public browser API candidate. A disabled-by-default explicit adapter exists for the captured autocomplete and `GetShip` shapes; keep it out of default routing until terms/rate review and browser-verification behavior are settled. |
 | ShipXplorer | Web UI/API candidate. Validate whether a supported ship API exists and whether UI capture is allowed. |
 | MarineVesselTraffic / similar map sites | Web UI candidates. Discovery-only until terms and technical feasibility are documented. |
 | FleetMon web UI | Treat as BYOK or authorized capture candidate only after account-specific terms review (<https://www.fleetmon.com/>). |
 | AIS Friends web UI | Community/contributor candidate; capture only after validating registration, contribution requirements, API terms, and redistribution policy. |
 
-Implementation status: web-only candidates do not have JSON adapter entries — they are tracked by capture-queue tickets and are not part of the default routing fallback chain. See `Provider Discovery Backlog` below.
+Implementation status: web-only candidates are not part of the default routing
+fallback chain. ShipFinder has an explicit runtime adapter candidate backed by
+sanitized browser-captured endpoint shapes, but it is intentionally absent from
+the structured default-routing catalog until terms/rate review and verification
+behavior are settled. Other web-only candidates remain tracked by capture-queue
+tickets. See `Provider Discovery Backlog` below.
 
 ## Provider Discovery Backlog
 

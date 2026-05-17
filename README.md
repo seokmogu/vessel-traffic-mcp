@@ -129,6 +129,15 @@ Live calls are gated behind `VESSEL_MCP_LIVE_TEST_*` flags and are
 `npm run lint`, or `npm run build`. See the operator runbook for the
 full list of toggles.
 
+### Public capture candidate: ShipFinder
+
+`src/providers/shipfinder.ts` implements the browser-captured ShipFinder
+autocomplete and vessel-detail API shapes for explicit use via
+`provider: "shipfinder"`. The default server registry remains fixture-only;
+public browser endpoints can challenge or throttle non-browser calls, and the
+adapter reports those cases as no-data provider states instead of bypassing
+verification.
+
 ## Project layout
 
 ```
