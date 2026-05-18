@@ -4,6 +4,7 @@ import { createMarineTrafficProvider, MARINETRAFFIC_DEFAULT_LABEL } from './mari
 import { createMyShipTrackingProvider } from './myshiptracking.js';
 import { createProviderRegistry, type ProviderRegistry } from './registry.js';
 import { createShipFinderProvider } from './shipfinder.js';
+import { createTradlinxScheduleProvider } from './tradlinx.js';
 import type { VesselDataProvider } from './types.js';
 
 export const PUBLIC_PROVIDERS_ENV = 'VESSEL_MCP_ENABLE_PUBLIC_PROVIDERS';
@@ -12,6 +13,7 @@ export const BYOK_PROVIDERS_ENV = 'VESSEL_MCP_ENABLE_BYOK_PROVIDERS';
 const publicProviderFactories = {
   myshiptracking: createMyShipTrackingProvider,
   shipfinder: createShipFinderProvider,
+  'tradlinx-schedule': createTradlinxScheduleProvider,
 } as const;
 
 type PublicProviderId = keyof typeof publicProviderFactories;
@@ -36,6 +38,10 @@ function parsePublicProviderIds(value: string | undefined): Set<PublicProviderId
   }
 
   for (const token of tokens) {
+    if (token === 'tradlinx') {
+      enabled.add('tradlinx-schedule');
+      continue;
+    }
     if (token in publicProviderFactories) {
       enabled.add(token as PublicProviderId);
     }

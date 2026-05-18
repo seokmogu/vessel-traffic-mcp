@@ -71,7 +71,8 @@ checkout.
       "command": "node",
       "args": ["/absolute/path/to/vessel-traffic-mcp/dist/index.js"],
       "env": {
-        "VESSEL_MCP_TRANSPORT": "stdio"
+        "VESSEL_MCP_TRANSPORT": "stdio",
+        "VESSEL_MCP_ENABLE_PUBLIC_PROVIDERS": "myshiptracking,tradlinx"
       }
     }
   }
@@ -81,6 +82,11 @@ checkout.
 Restart Claude Desktop after editing the config. In a new chat, the
 `vessel-traffic-mcp` server should appear in the tool listing with the
 read-only tools enumerated above.
+
+`tradlinx` enables the explicit opt-in FCL/LCL carrier schedule adapter for
+`carrier_schedule_search`; the default verification path remains fixture-only.
+Client displays may show the returned `source.landingUrl` as the source without
+adding a vendor display label.
 
 BYOK profile env vars (only when you have explicit authorization for
 that provider and account) go in the same `env` block:

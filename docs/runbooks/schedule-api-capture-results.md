@@ -16,6 +16,9 @@ and a user-facing URL. For Tradelinx this means:
   `https://www.tradlinx.com/ko/ocean-schedule-fcl?org=105169&des=105234&day=2026-05-18`
 - When present, keep upstream carrier schedule links such as `linePlanUrl` as
   secondary source links, not as a replacement for Tradelinx attribution.
+- Client display text may present the source as the returned URL instead of a
+  vendor display label, but the structured metadata must keep enough provenance
+  for audit/debugging.
 
 ## Tradelinx Schedule
 
@@ -156,12 +159,24 @@ The browser also called banner/ad/content endpoints such as:
 
 These are not schedule-data sources and should not feed MCP schedule results.
 
+## Adapter status
+
+`src/providers/tradlinx.ts` implements the FCL/LCL route schedule endpoints for
+explicit opt-in runtime use through:
+
+```text
+VESSEL_MCP_ENABLE_PUBLIC_PROVIDERS=tradlinx
+```
+
+The adapter exposes `carrier_schedule_search` only. The captured FCL detail,
+vesselSchedule, and carrier-contact endpoints remain reference material until a
+stable `vslId` resolution path and contact-data policy are reviewed.
+
 ## Guardrails
 
-- Keep Tradelinx as `capture_only` until terms/rate review is complete.
 - Do not commit raw responses, screenshots, HAR files, cookies, or private
   browser artifacts.
 - Do not replay login, SSO, account, billing, or ad-click endpoints.
 - Default tests must not call live Tradelinx endpoints.
-- A future adapter must use conservative pacing and must expose Tradelinx
-  source URLs in every returned schedule or scheduled port-call result.
+- The adapter must use conservative pacing and must expose a user-facing source
+  URL in every returned schedule result.

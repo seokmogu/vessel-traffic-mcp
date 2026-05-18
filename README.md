@@ -170,6 +170,21 @@ The MCP responses include `source.provider = "myshiptracking"` and
 `source.landingUrl = "https://www.myshiptracking.com/"` so clients can
 display the source service and route users back to it.
 
+### Public opt-in candidate: Carrier schedules
+
+`src/providers/tradlinx.ts` implements the browser-captured FCL/LCL
+route schedule endpoints for explicit runtime use:
+
+```bash
+VESSEL_MCP_ENABLE_PUBLIC_PROVIDERS=tradlinx npm start
+```
+
+Use `carrier_schedule_search` with origin/destination UN/LOCODEs such
+as `KRPUS` and `NLRTM`, or known names such as `부산` and `로테르담`.
+The adapter returns a user-facing schedule URL in `source.landingUrl`.
+Client UIs may show that URL as the source without adding a vendor
+display label.
+
 ### Local vessel map UI
 
 For a local visual check with ship-name input and a map:
@@ -208,7 +223,7 @@ args = ["/absolute/path/to/vessel-traffic-mcp/dist/index.js"]
 
 [mcp_servers.vessel-traffic-mcp.env]
 VESSEL_MCP_TRANSPORT = "stdio"
-VESSEL_MCP_ENABLE_PUBLIC_PROVIDERS = "myshiptracking"
+VESSEL_MCP_ENABLE_PUBLIC_PROVIDERS = "myshiptracking,tradlinx"
 ```
 
 Restart the Codex app after editing the config. In a fresh Codex
@@ -254,11 +269,11 @@ EVER GIVEN 선박 스케줄을 조회하고 ETA 지연 여부를 계산해줘.
 
 Current schedule-provider candidates are tracked in
 [`docs/provider-catalog.md`](./docs/provider-catalog.md): Tradelinx has
+an explicit opt-in `carrier_schedule_search` adapter backed by
 sanitized browser-captured endpoint shapes documented in
 [`docs/runbooks/schedule-api-capture-results.md`](./docs/runbooks/schedule-api-capture-results.md)
-and remains capture-only until terms/rate review, while SeaRates,
-Linescape, IQAX Big Schedules, Routescanner, and CargoSmart are
-cataloged for BYOK/API or enterprise review.
+while SeaRates, Linescape, IQAX Big Schedules, Routescanner, and
+CargoSmart are cataloged for BYOK/API or enterprise review.
 
 ## Project layout
 

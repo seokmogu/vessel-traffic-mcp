@@ -455,15 +455,14 @@
       "priority": "P1",
       "coverage": "Korea-oriented public FCL/LCL/rail schedule search and related logistics lookup pages; source URL attribution required.",
       "capabilities": [
-        "carrier_schedule_search",
-        "vessel_schedule"
+        "carrier_schedule_search"
       ],
       "auth": {
         "mode": "none",
         "required": false,
         "profileFields": [],
         "envVars": [],
-        "notes": "Public web schedule pages; browser capture on 2026-05-18 found no-login FCL/LCL and detail endpoints, but adapter use still requires terms/rate review."
+        "notes": "Public web schedule pages; browser capture on 2026-05-18 found no-login FCL/LCL endpoints. Runtime use is explicit opt-in through VESSEL_MCP_ENABLE_PUBLIC_PROVIDERS=tradlinx."
       },
       "cost": {
         "model": "free",
@@ -473,15 +472,15 @@
         "landingUrl": "https://www.tradlinx.com/ko/schedule?tab=fcl",
         "referenceUrl": "https://www.tradlinx.com/lingo/search"
       },
-      "implementationStatus": "capture_only",
+      "implementationStatus": "implemented",
       "liveTest": {
         "enabledFlagEnvVar": "VESSEL_MCP_LIVE_TEST_TRADLINX_SCHEDULE",
         "requiredEnvVars": [],
         "defaultDisabled": true,
-        "notes": "Default tests must not call live Tradelinx endpoints; captured endpoint shapes are documented for operator review only."
+        "notes": "Default tests use mocked responses. Live calls stay opt-in through explicit runtime configuration."
       },
       "captureEligibility": "needs-terms-review",
-      "notes": "Browser capture on 2026-05-18 identified api.tradlinx.com fclschedule, lclschedule, fclschedule/{schId}, vesselSchedule/{carrier}/{vslId}, and soperContactLst/{carrier}. Any promoted adapter must preserve Tradelinx source URL attribution and treat contact fields conservatively."
+      "notes": "Browser capture on 2026-05-18 identified api.tradlinx.com fclschedule, lclschedule, fclschedule/{schId}, vesselSchedule/{carrier}/{vslId}, and soperContactLst/{carrier}. The implemented adapter currently exposes only carrier_schedule_search and deliberately omits LCL contact/CFS free-text fields. Client displays may use the source URL without a vendor display label."
     },
     {
       "id": "searates-schedules",

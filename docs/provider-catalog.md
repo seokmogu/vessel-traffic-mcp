@@ -190,16 +190,17 @@ Always prefer an official API once one becomes available.
 | MarineVesselTraffic / similar map sites | Web UI candidates. Discovery-only until terms and technical feasibility are documented. |
 | FleetMon web UI | Treat as BYOK or authorized capture candidate only after account-specific terms review (<https://www.fleetmon.com/>). |
 | AIS Friends web UI | Community/contributor candidate; capture only after validating registration, contribution requirements, API terms, and redistribution policy. |
-| Tradelinx Schedule web UI | Public Korean logistics schedule candidate for FCL/LCL/rail schedule lookup. Browser capture on 2026-05-18 found no-login schedule/detail endpoint shapes; keep this as capture-only until terms/rate review and preserve the source URL (`https://www.tradlinx.com/ko/schedule?tab=fcl`, `https://www.tradlinx.com/ko/schedule?tab=lcl`, `tradlinx-schedule`). |
+| Tradelinx Schedule web UI | Public Korean logistics schedule candidate for FCL/LCL route lookup. Browser capture on 2026-05-18 found no-login schedule/detail endpoint shapes; `carrier_schedule_search` is implemented as an explicit opt-in public provider (`VESSEL_MCP_ENABLE_PUBLIC_PROVIDERS=tradlinx`) and should preserve a user-facing source URL (`https://www.tradlinx.com/ko/schedule?tab=fcl`, `https://www.tradlinx.com/ko/schedule?tab=lcl`). |
 
 Implementation status: web-only candidates are not part of the default routing
 fallback chain. ShipFinder has an explicit runtime adapter candidate backed by
 sanitized browser-captured endpoint shapes, but it is intentionally absent from
 the structured default-routing catalog until terms/rate review and verification
-behavior are settled. Tradelinx schedule is now capture-only: endpoint shapes
-are documented, but adapter implementation is intentionally gated until terms
-and contact-data handling are reviewed. Other web-only candidates remain tracked
-by capture-queue tickets. See `Provider Discovery Backlog` below.
+behavior are settled. Tradelinx schedule now has an explicit opt-in
+`carrier_schedule_search` adapter for captured FCL/LCL route endpoints; the
+vesselSchedule/detail/contact endpoints remain documented but are not promoted
+as standalone user-facing tools. Other web-only candidates remain tracked by
+capture-queue tickets. See `Provider Discovery Backlog` below.
 
 ## Provider Discovery Backlog
 

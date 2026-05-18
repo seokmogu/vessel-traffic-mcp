@@ -399,6 +399,7 @@ test('Runtime registry keeps fixture-only default and enables public adapters by
   assert.deepEqual(all.providers().map((provider) => provider.id), [
     'myshiptracking',
     'shipfinder',
+    'tradlinx-schedule',
     'fixture',
   ]);
 });
