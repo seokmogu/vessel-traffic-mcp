@@ -55,10 +55,10 @@
     "config/provider-catalog.example.json"
   ],
   "bin": {
-    "vessel-traffic-mcp": "./dist/index.js",
-    "vessel-capture-import": "./dist/capture/cli.js",
-    "vessel-capture-ir": "./dist/capture/ir-cli.js",
-    "vessel-capture-runner": "./dist/capture/runner-cli.js"
+    "vessel-traffic-mcp": "dist/index.js",
+    "vessel-capture-import": "dist/capture/cli.js",
+    "vessel-capture-ir": "dist/capture/ir-cli.js",
+    "vessel-capture-runner": "dist/capture/runner-cli.js"
   },
   "scripts": {
     "build": "tsc -p tsconfig.json && chmod +x dist/index.js dist/capture/cli.js dist/capture/ir-cli.js dist/capture/runner-cli.js",

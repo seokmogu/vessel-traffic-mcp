@@ -153,7 +153,7 @@ test('codex runbook references the package binary target', () => {
   const text = read(CODEX_URL);
   const pkg = JSON.parse(read(PACKAGE_URL));
   const binaryTarget = pkg.bin['vessel-traffic-mcp'];
-  assert.equal(binaryTarget, './dist/index.js');
+  assert.equal(binaryTarget, 'dist/index.js');
   assert.ok(
     text.includes('dist/index.js'),
     'codex runbook must point at the dist/index.js binary',

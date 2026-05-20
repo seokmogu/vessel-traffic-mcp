@@ -423,7 +423,7 @@ test('CLI surfaces errors when the input file is missing', async () => {
 
 test('package exposes vessel-capture-import bin and capture:import script', () => {
   const pkg = JSON.parse(readFileSync(new URL('../package.json', import.meta.url), 'utf8'));
-  assert.equal(pkg.bin['vessel-capture-import'], './dist/capture/cli.js');
+  assert.equal(pkg.bin['vessel-capture-import'], 'dist/capture/cli.js');
   assert.match(pkg.scripts['capture:import'], /dist\/capture\/cli\.js/);
 });
 

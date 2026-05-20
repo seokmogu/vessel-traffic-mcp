@@ -102,7 +102,7 @@ test('client setup runbook references the package binary target', () => {
   const text = readRunbook();
   const pkg = JSON.parse(readFileSync(PACKAGE_URL, 'utf8'));
   const binaryTarget = pkg.bin['vessel-traffic-mcp'];
-  assert.equal(binaryTarget, './dist/index.js');
+  assert.equal(binaryTarget, 'dist/index.js');
   // The runbook should point clients at this same binary path.
   assert.ok(text.includes('dist/index.js'), 'runbook must point at the dist/index.js binary');
 });

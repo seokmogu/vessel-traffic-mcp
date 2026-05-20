@@ -110,7 +110,7 @@ test('package binary target starts an MCP stdio server', { timeout: 5000 }, asyn
   const pkg = JSON.parse(await readFile(new URL('../package.json', import.meta.url), 'utf8'));
   const binaryTarget = pkg.bin['vessel-traffic-mcp'];
 
-  assert.equal(binaryTarget, './dist/index.js');
+  assert.equal(binaryTarget, 'dist/index.js');
 
   const transport = new StdioClientTransport({
     command: join(projectRoot, binaryTarget),

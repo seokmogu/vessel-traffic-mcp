@@ -582,7 +582,7 @@ test('vessel-capture-ir CLI surfaces error for missing input file', async () => 
 
 test('package.json wires vessel-capture-ir bin and capture:ir script', () => {
   const pkg = JSON.parse(readFileSync(new URL('../package.json', import.meta.url), 'utf8'));
-  assert.equal(pkg.bin['vessel-capture-ir'], './dist/capture/ir-cli.js');
+  assert.equal(pkg.bin['vessel-capture-ir'], 'dist/capture/ir-cli.js');
   assert.match(pkg.scripts['capture:ir'], /dist\/capture\/ir-cli\.js/);
 });
 
