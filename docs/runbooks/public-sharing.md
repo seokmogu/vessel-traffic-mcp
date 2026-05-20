@@ -53,26 +53,29 @@ The package also declares the same value in `package.json` as
 `mcpName` so registry ownership verification can be tied to the
 published package.
 
-Current state as of 2026-05-19:
+Current state as of 2026-05-20:
 
 - `mcp-publisher validate server.json` passes against the official
   registry validator.
-- `@tools-mcp/vessel-traffic-mcp` is not yet present on npm.
-- This local machine is authenticated to npm as `seokmogu`.
-- The `tools-mcp` npm org/scope is not present for this npm account
-  yet. Create the npm organization before publishing the scoped
-  package.
+- `@tools-mcp/vessel-traffic-mcp@0.1.0` is public on npm.
+- `npm access get status @tools-mcp/vessel-traffic-mcp` reports
+  `public`.
+- `npm dist-tag ls @tools-mcp/vessel-traffic-mcp` reports
+  `latest: 0.1.0`.
+- `npm view @tools-mcp/vessel-traffic-mcp name version bin dist-tags
+  repository.url --json` returns the published package metadata after
+  npm registry propagation.
 
 Publication blocker:
 
-- `package.json` is scoped-package ready, but maintainers must create
-  or verify the npm `tools-mcp` organization before running
-  `npm publish`.
-- Do not run registry publication until npm package publication is
-  approved and the `@tools-mcp/vessel-traffic-mcp` npm package is publicly
-  available.
+- MCP Registry publication is blocked on GitHub organization membership
+  visibility. The registry token authenticated as the current GitHub
+  user can publish `io.github.seokmogu/*`, but rejected
+  `io.github.tools-mcp/vessel-traffic-mcp` with a 403 until the
+  `tools-mcp` organization membership is made public or another
+  approved registry identity is used.
 
-Manual publication sequence after npm organization setup:
+Manual publication sequence already completed for npm:
 
 1. In npm's web UI, create the `tools-mcp` organization and choose the
    free public-package plan. npm's official flow is profile menu →
@@ -88,7 +91,7 @@ Manual publication sequence after npm organization setup:
 
    The package lookup should return `E404` before first publish; the
    org lookup must not return `Scope not found`.
-3. Publish and submit registry metadata:
+3. Publish the npm package:
 
    ```bash
    npm ci
@@ -96,9 +99,15 @@ Manual publication sequence after npm organization setup:
    npm test
    npm run build
    npm publish --access public
-   tmp/bin/mcp-publisher login github
-   tmp/bin/mcp-publisher publish server.json
    ```
+
+MCP Registry publication sequence after GitHub organization membership
+visibility is approved:
+
+```bash
+tmp/bin/mcp-publisher login github
+tmp/bin/mcp-publisher publish server.json
+```
 
 If a remote hosted MCP endpoint is published instead of npm, update
 `server.json` with the official remote-server package shape and add

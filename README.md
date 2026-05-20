@@ -17,14 +17,14 @@ surfaces may change.
 | GitHub | Public | https://github.com/tools-mcp/vessel-traffic-mcp |
 | Local MCP server | Ready from source | `git clone`, `npm ci`, `npm run build`, then register `dist/index.js` in your MCP client |
 | Local map UI | Ready from source | `npm run start:map`, then open `http://127.0.0.1:8787` |
-| MCP Registry | Metadata ready | `server.json` validates with `mcp-publisher validate server.json`; registry publish waits for public npm package publication |
-| npm | Scoped package ready, not published yet | Use `@tools-mcp/vessel-traffic-mcp`; create/verify the npm `tools-mcp` org before `npm publish --access public` |
+| MCP Registry | Metadata ready, publish blocked | `server.json` validates; `mcp-publisher publish` requires public GitHub membership in the `tools-mcp` organization |
+| npm | Public | `@tools-mcp/vessel-traffic-mcp@0.1.0` is published at https://www.npmjs.com/package/@tools-mcp/vessel-traffic-mcp |
 | Glama / Smithery / PulseMCP | Submission ready | See [`docs/runbooks/public-sharing.md`](./docs/runbooks/public-sharing.md) for directory-specific steps |
 
-For the fastest current install path, use the GitHub source install in
-the [Quick Start](#quick-start) section. Once the npm package is
-published, the MCP Registry and directory submissions can be completed
-from the same metadata already committed in this repository.
+The npm package is public. The MCP Registry and directory submissions
+can use the same metadata already committed in this repository; MCP
+Registry publication currently waits on GitHub organization membership
+visibility for `tools-mcp`.
 
 ## Languages
 
