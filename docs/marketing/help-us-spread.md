@@ -10,6 +10,8 @@ easy to forward without turning it into spam.
 - npm: https://www.npmjs.com/package/@tools-mcp/vessel-traffic-mcp
 - MCP Registry: `io.github.tools-mcp/vessel-traffic-mcp`
 - Release: https://github.com/tools-mcp/vessel-traffic-mcp/releases/tag/v0.1.0
+- Help wanted issue: https://github.com/tools-mcp/vessel-traffic-mcp/issues/7
+- Feedback discussion: https://github.com/tools-mcp/vessel-traffic-mcp/discussions/8
 
 ## The Ask
 
@@ -76,6 +78,9 @@ Useful feedback:
 - whether installation worked on the first try;
 - which prompt failed or felt unclear;
 - which logistics workflow would make this worth using weekly.
+
+Leave feedback in the public discussion:
+https://github.com/tools-mcp/vessel-traffic-mcp/discussions/8
 
 ## 1 Hour Help
 

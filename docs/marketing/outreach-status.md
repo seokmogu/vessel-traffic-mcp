@@ -16,6 +16,10 @@ Snapshot date: 2026-05-24 KST
   [`docs/marketing/help-us-spread.md`](./help-us-spread.md).
 - The sharing kit gives 3-minute, 15-minute, and 1-hour contribution options
   plus copy/paste Korean and English outreach text.
+- Pinned help wanted issue for community sharing:
+  https://github.com/tools-mcp/vessel-traffic-mcp/issues/7
+- Public feedback discussion:
+  https://github.com/tools-mcp/vessel-traffic-mcp/discussions/8
 
 ## Current Metrics
 
